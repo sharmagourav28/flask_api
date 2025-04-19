@@ -1,5 +1,12 @@
 from flask import Flask, render_template, jsonify
+import mysql.connector as m
 
+# database connectivity
+
+mydatabase = m.connect(
+    host="localhost", user="root", password="Gourav@2806", database="pythondb1"
+)
+cursor = mydatabase.cursor()
 
 app = Flask(__name__, template_folder="template")  # using custom folder
 
@@ -20,6 +27,15 @@ def getHome():
 @app.route("/books", methods=["GET"])
 def getBooks():
     return jsonify(books)
+
+
+@app.route("/persons", methods=["GET"])
+def getPersons():
+    query = "select * from person"
+    cursor.execute(query)
+    result = cursor.fetchall()
+    print(result)
+    return render_template("welcome.html", data=result)
 
 
 if __name__ == "__main__":
