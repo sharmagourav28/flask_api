@@ -15,3 +15,86 @@ from flask import Flask, jsonify  # jsonify remove the error
 def getBooks():
     booklist = ["Complete Reference Python", "Mastering Python", "Deep dive into MySQL"]
     return jsonify(booklist)  # added jsonify
+
+
+In Flask, 
+app = Flask(__name__) 
+
+creates a "Flask" class instance. 
+
+Flask: Flask is a class provided by the Flask framework. It represents the Flask application.
+
+
+__name__
+	 __name__ is a special Python variable that represents the name of the current module. When you run a Python script directly, __name__ is set to '__main__'. When the script is imported as a module in another script, __name__ is set to the name of the module.
+
+
+app = Flask(__name__)
+
+	 This line creates a Flask class instance named "app" by passing the name of the current module (i.e. __name__). 
+By using __name__, Flask knows where to look for templates, static files, and other resources relative to the current module.
+
+So, app = Flask(__name__) creates a Flask application instance, which you can then use to 
+	define routes
+	handle requests
+	and build your web application.
+
+
+
+app.run()
+ This method starts the Flask development server to handle incoming requests. By default, it listens on localhost (127.0.0.1) on port 5000. However, you can specify the host and port as arguments to this method if you want to run the server on a different host or port.
+
+e.g
+
+app.run(host='hostname', port=some port no.)
+
+debug=True
+
+ When debug is set to True, it enables the debug mode in Flask. Debug mode provides helpful features like automatic reloading of the server when code changes are detected, a debugger console in the browser in case of errors, and more detailed error messages. 
+
+
+
+ In Flask, the app.route() decorator is used to define routes for your web application. Routes are URLs that the application will respond to and the app.route() decorator binds a function to a URL. 
+
+from flask import Flask
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return 'Hello, World!'
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+
+In this example:
+
+@app.route('/')
+is a decorator that associates the URL '/' (the root URL) with the home() function. So, when a user visits the root URL of the application (e.g., http://localhost:5000/), Flask will call the home() function and return its result as the response to the request.
+
+You can define routes for different URLs by using the @app.route() decorator with different URL patterns. For example:
+
+@app.route('/about')
+def about():
+    return 'This is the about page.'
+
+@app.route('/contact')
+def contact():
+    return 'This is the contact page.'
+
+In this case, visiting http://localhost:5000/about will call the about() function and return its result, and visiting http://localhost:5000/contact will call the contact() function and return its result.
+
+The @app.route() decorator can also specify HTTP methods such as GET, POST, PUT, DELETE, etc., allowing you to define routes that handle different types of requests (CRUD operations). 
+By default, if no methods are specified, the route will only respond to GET requests. For example:
+
+@app.route('/submit', methods=['POST'])
+def submit_form():
+    some logic
+
+Here, the submit_form() function will only be called for POST requests to the /submit URL.
+
+
+Now Created  a new branch 
+git branch -b newfeature1
+
+Create a directory named "templates" in the same directory as your "First.py" file. Inside the "templates" directory, create a file named "home.html".
